@@ -34,8 +34,7 @@
 namespace evim {
 namespace {
 
-constexpr const char* kDefaultConfig = R"PY(# EVim
-configuration
+constexpr const char* kDefaultConfig = R"PY(# EVim configuration
 # Location: ~/.config/evim/config.py
 
 # Appearence
