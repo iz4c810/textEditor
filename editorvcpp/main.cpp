@@ -64,3 +64,28 @@ keybinds = {
 }
 
 )PY";
+
+std::filesystem::path homeDirectory() {
+  if (const char* home = std::getenv("HOME"; home && *home) {
+    return std::filesystem::path(home);
+  }
+  return std::filesystem::current_path();
+}
+
+void ensureConfigFile(const std::filesystem::path& path, std::string& warning) {
+  std::error_code ec;
+  std::filesystem::create_directories(path.parent_path(), ec);
+  if (ec) {
+    warning = "Could not generate config directory: " + ec.message();
+    return;
+  }
+
+  if (!std::filesystem::exists(path, ec)) {
+    std::ofstream out(path);
+    if (!out) {
+      warning = "Could not create config file: " + path.string();
+      return;
+    }
+    out << kDefaultConfig;
+  }
+}
